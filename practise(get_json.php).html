@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.red {
+			border: 1px solid red;
+		}
+
+		.green {
+			border: 1px solid green;
+		}
+	</style>
+</head>
+
+<body>
+	用户名：<input type="text" id="user" /><span id="span"></span>
+	<script type="text/javascript">
+		/*var user = document.getElementById('user');
+					var span = document.getElementById('span');
+
+					user.onblur=function(){
+						const ajax = new XMLHttpRequest;
+						ajax.open('get','php/get_json.php?user='+user.value);
+						ajax.send();
+						ajax.onload=function () {
+							var data = JSON.parse(ajax.responseText);
+							if(data.code){
+								user.className = 'red';
+							}else{
+								user.className = 'green';
+							}
+							span.innerHTML=data.msg;
+						}
+					}*/
+		//JQ版
+		$('#user').blur(function(){
+			$.ajax({
+				url:'php/get_json.php',
+				data:{
+					user:$('#user').value,
+				},
+				dataType:'json',
+				success:function(data){
+					$('#span').text(data.msg)
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>

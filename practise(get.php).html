@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		用户名：<input type="text" name="user" id="user"/><span id="span"></span><br />
+		密码：<input type="password"/>
+		<input type="button" value="提交"/>
+		<script type="text/javascript">
+			/*$('#user').blur(function(){
+				$.ajax({
+					url:'php/get.php',
+					data:{
+						user:$('#user').val()
+					},
+					success:function(data){
+						$('span').text(data)
+					}
+				})
+			})*/
+			//y原生
+			var user = document.getElementById('user');
+			var span = document.getElementById('span');
+			user.onblur=function(){
+				const ajax = new XMLHttpRequest();
+				ajax.open('get','php/get.php?user='+user.value);
+				ajax.send();
+				span.innerHTML =ajax.responseText;
+				ajax.onload=function(){
+					span.innerHTML=ajax.responseText;
+				}
+			}
+		</script>
+	</body>
+</html>
