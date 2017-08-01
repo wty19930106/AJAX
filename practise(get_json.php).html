@@ -20,22 +20,22 @@
 	用户名：<input type="text" id="user" /><span id="span"></span>
 	<script type="text/javascript">
 		/*var user = document.getElementById('user');
-					var span = document.getElementById('span');
+		var span = document.getElementById('span');
 
-					user.onblur=function(){
-						const ajax = new XMLHttpRequest;
-						ajax.open('get','php/get_json.php?user='+user.value);
-						ajax.send();
-						ajax.onload=function () {
-							var data = JSON.parse(ajax.responseText);
-							if(data.code){
-								user.className = 'red';
-							}else{
-								user.className = 'green';
-							}
-							span.innerHTML=data.msg;
-						}
-					}*/
+		user.onblur=function(){
+			const ajax = new XMLHttpRequest;
+			ajax.open('get','php/get_json.php?user='+user.value);
+			ajax.send();
+			ajax.onload=function () {
+				var data = JSON.parse(ajax.responseText);
+				if(data.code){
+					user.className = 'red';
+				}else{
+					user.className = 'green';
+				}
+				span.innerHTML=data.msg;
+			}
+		}*/
 		//JQ版
 		$('#user').blur(function(){
 			$.ajax({
