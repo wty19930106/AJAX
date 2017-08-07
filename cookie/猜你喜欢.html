@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div"></div>
+	
+	<p id="p">
+		<!--<span style="padding:10px;background: #ccc;margin:3px;">服装</span><span style="padding:10px;background: #ccc;">游戏</span>-->
+	</p>
+	<ul id="ul">
+		
+	</ul>
+	<script src="jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var arr = ['服装','游戏','电影','音乐'];
+		let obj = {
+			[arr[0]]:['男装','女装','童装','唐装','汉服','西服'],
+			[arr[1]]:['魔兽世界','LOL','DOT2','炉石','风暴英雄','守望先锋'],
+			[arr[2]]:['战狼2','阿凡达','死神来了','生化危机','异形','速度与激情','地道战'],
+			[arr[3]]:['count on me','暧昧','爱如潮水','200x年的第一场雪','告白气球','壁虎漫步']
+		};
+		var arr2 = [];
+		var html = '';
+		for(var i=0;i<arr.length;i++){
+			html+=`<button>${arr[i]}</button>`
+		}
+		$('#div').html(html);
+
+		var btns = document.getElementsByTagName('button');
+	
+		for(let i = 0;i < btns.length;i++){
+			btns[i].onclick = function(){
+				var h = '';
+				for(var a=0;a<obj[arr[i]].length;a++){
+					h += `<li>${obj[arr[i]][a]}</li>`
+				}
+				
+				$('#ul').html(h);
+				arr2.push(arr[i]);
+
+				setCookie('like',JSON.stringify(arr2),2);	
+			}
+		}
+
+		$('#p').click(function(ev){
+			if (ev.target.tagName=='SPAN') {
+				ev.target.remove();
+				arr2 = arr2.filter(e=> e != ev.target.innerHTML);
+				setCookie('like',JSON.stringify(arr2),2);
+			}
+		})
+
+
+
+		if(getCookie('like')!=-1){
+			var concatArr= [];
+			var str='';
+			let likes =JSON.parse(getCookie('like'));
+			console.log(getCookie('like'));
+			console.log(likes)
+
+			for(var i=0;i<likes.length;i++){
+				if (!concatArr.includes(obj[likes[i]])) {
+					str+=`<span style="padding:10px;background: #ccc;margin:3px;">${likes[i]}</span>`;
+					concatArr.push(obj[likes[i]]);
+				}	
+			}
+
+			arr2=likes;
+			$('#p').html(str);
+			concatArr=concatArr.toString().split(',')
+
+			concatArr.sort(function(){
+				return Math.random()-.5;
+			})
+			concatArr.length=5;
+
+			var h = '';
+			for(var i=0;i<concatArr.length;i++){
+				h += `<li>${concatArr[i]}</li>`;
+			}
+			ul.innerHTML = h;
+		}
+
+
+
+		function removeCookie(key,value){
+			setCookie(key,value,-1);
+		}
+	
+		function setCookie(key,value,time){
+			if(time){
+				var iDate = new Date();
+				iDate.setDate(iDate.getDate()+time);
+				document.cookie = key+'='+value+';expires='+iDate
+			}else{
+				document.cookie = key+'='+value;
+			}
+		}
+		function getCookie(key){
+			let str = document.cookie;
+			let arr = str.split('; ');
+			let val = null;
+			
+			for(var i=0;i<arr.length;i++){
+				let arr2 = arr[i].split('=');
+				if(arr2[0] == key){
+					val = arr2[1]; 
+					break;
+				}
+			}
+			
+			if(!val){
+				return -1;
+			}else{
+				return val;
+			}
+		}
+	</script>
+</body>
+</html>
